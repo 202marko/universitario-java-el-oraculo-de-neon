@@ -1,31 +1,28 @@
 import java.util.Scanner;
 
 /**
- * CLASES
+ * CLASES PROYECTO UNIVERSITARIO
  * 1- Clase Principal: El Oráculo de Neón
- * 2- Clases de Escenarios: Píldora Roja y Píldora Azul
- * 3- Clases de Retos: Lógica, Memoria, Seguridad, etc.
- * 4- Clases de Interacción: Comandos, Inventario, Pistas, etc.
- * 5- Clases de Narrativa: Diálogos, Descripciones, Eventos, etc.
- * 6- Clases de Utilidades: Guardado/Carga, Configuración, Ayuda, etc.
  * Estudiante: Marco Somarribas - Universidad CENFOTEC
- * Descripción: Simulación de escape room con estética retro-computing.
+ * Descripción: Simulación de escape room con estética retro-computing y validaciones de flujo completas.
  */
 public class Main {
-    // Scanner global para ser usado en diferentes métodos
-    private static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
-        // Creamos el Scanner una única vez aquí
+        // Creamos el Scanner una única vez aquí como 'lector'
         Scanner lector = new Scanner(System.in);
         
-        // Iniciamos el juego pasándole el lector
+        // Iniciamos el juego pasándole el objeto lector
         iniciarJuego(lector);
         
+        // Cerramos el recurso al finalizar todo el programa
         lector.close();
     }
 
-    //Método: iniciarJuego: Renderiza el mapa estilo consola 80s y presenta la narrativa inicial.
+    /**
+     * Método: iniciarJuego
+     * Renderiza el mapa estilo consola 80s y gestiona la bienvenida con validación SI/NO.
+     */
     public static void iniciarJuego(Scanner lector) {
         System.out.println(" ___________________________________________________________ ");
         System.out.println("|                                                           |");
@@ -46,46 +43,70 @@ public class Main {
         System.out.println(">> PANTALLA: CARGANDO AVENTURA DE TEXTO...");
         System.out.println(">> BIENVENIDO, USUARIO. HAS SIDO DETECTADO EN EL SISTEMA.");
 
-        System.out.print("\nREADY. ¿DESEAS INICIAR SESIÓN? (SI/NO): ");
-        String respuesta = sc.nextLine();
+        String respuesta = "";
+        boolean entradaValida = false;
 
-        if (respuesta.equalsIgnoreCase("SI")) {
-            // Llamada al siguiente método de la arquitectura
-            faseCanalizacionActiva();
-        } else {
-            System.out.println("\n>> SISTEMA DETENIDO. HASTA LUEGO.");
+        while (!entradaValida) {
+            System.out.print("\nREADY. ¿DESEAS INICIAR SESIÓN? (SI/NO): ");
+            respuesta = lector.nextLine().trim(); 
+
+            if (respuesta.equalsIgnoreCase("SI")) {
+                entradaValida = true; 
+                System.out.println("\n>> ACCESO CONCEDIDO. INICIANDO PROTOCOLO...");
+                faseCanalizacionActiva(lector); 
+            } 
+            else if (respuesta.equalsIgnoreCase("NO")) {
+                entradaValida = true; 
+                System.out.println("\n>> SISTEMA DETENIDO. HASTA LUEGO.");
+            } 
+            else {
+                System.out.println(">> ERROR: '" + respuesta + "' no es un comando válido.");
+                System.out.println(">> Escriba 'SI' para continuar o 'NO' para salir.");
+            }
         }
     }
 
-    // Método: faseCanalizacionActiva: Representa la Fase 0 donde el usuario debe confirmar su entrada al código.
-    public static void faseCanalizacionActiva() {
+    /**
+     * Método: faseCanalizacionActiva
+     * Requiere el comando 'LANZARSE' con validación repetitiva para evitar errores.
+     */
+    public static void faseCanalizacionActiva(Scanner lector) {
         System.out.println("\n--- [FASE 0: CANALIZACIÓN ACTIVA] ---");
         System.out.println(">> EL SISTEMA ESTÁ GENERANDO EL ENTORNO VIRTUAL...");
         
-        // Simulación visual de carga
         System.out.println("[##########..........] 50% CARGADO");
         System.out.println("[####################] 100% COMPLETADO");
         
         System.out.println("\n>> ADVERTENCIA: Una vez dentro, no hay vuelta atrás.");
         System.out.println(">> Debes sincronizar tu pulso con el código del Oráculo.");
-        System.out.println("\nEscribe el comando 'LANZARSE' para entrar al portal:");
-        System.out.print("> ");
         
-        String comando = sc.nextLine();
+        String comando = "";
+        boolean sincronizado = false;
 
-        if (comando.equalsIgnoreCase("LANZARSE")) {
-            System.out.println("\n>> ¡DESCOMPRESIÓN DE DATOS EXITOSA!");
-            System.out.println(">> Te has lanzado al vacío digital...");
-            // Próximo paso: dilemaDelOraculo()
-            dilemaDelOraculo();
-        } else {
-            System.out.println("\n>> ERROR DE SINCRONIZACIÓN. EL PORTAL SE HA CERRADO.");
-            System.out.println(">> Tu consciencia quedó atrapada en el buffer.");
+        while (!sincronizado) {
+            System.out.println("\nEscribe el comando 'LANZARSE' para entrar al portal:");
+            System.out.print("> ");
+            
+            comando = lector.nextLine().trim();
+
+            if (comando.equalsIgnoreCase("LANZARSE")) {
+                sincronizado = true; 
+                System.out.println("\n>> ¡DESCOMPRESIÓN DE DATOS EXITOSA!");
+                System.out.println(">> Te has lanzado al vacío digital...");
+                dilemaDelOraculo(lector);
+            } 
+            else {
+                System.out.println(">> [ERROR DE SINCRONIZACIÓN]: Comando '" + comando + "' desconocido.");
+                System.out.println(">> El portal requiere la palabra clave exacta para abrirse.");
+            }
         }
     }
 
-    // Método: dilemaDelOraculo: Punto donde el usuario elige su camino (Roja o Azul).
-    public static void dilemaDelOraculo() {
+    /**
+     * Método: dilemaDelOraculo
+     * Punto de ramificación principal del juego con validación de ruta ROJA/AZUL.
+     */
+    public static void dilemaDelOraculo(Scanner lector) {
         System.out.println("\n===========================================================");
         System.out.println("            EL DILEMA DEL ORÁCULO: ELIGE TU DESTINO        ");
         System.out.println("===========================================================");
@@ -93,10 +114,24 @@ public class Main {
         System.out.println("\n1. PÍLDORA ROJA: La verdad amarga. (Retos lógicos complejos)");
         System.out.println("2. PÍLDORA AZUL: La ignorancia feliz. (Protocolos de seguridad)");
         
-        System.out.print("\n¿Qué camino eliges? (ROJA/AZUL): ");
-        String eleccion = sc.nextLine();
+        String eleccion = "";
+        boolean rutaElegida = false;
 
-        // Aquí es donde bifurcaremos a los métodos de Escenarios que hicimos antes
-        System.out.println("Has elegido la ruta: " + eleccion.toUpperCase());
+        // Bucle de validación para asegurar la elección correcta de la píldora
+        while (!rutaElegida) {
+            System.out.print("\n¿Qué camino eliges? (ROJA/AZUL): ");
+            eleccion = lector.nextLine().trim();
+
+            if (eleccion.equalsIgnoreCase("ROJA") || eleccion.equalsIgnoreCase("AZUL")) {
+                rutaElegida = true;
+                System.out.println("\n>> Has elegido la ruta: " + eleccion.toUpperCase());
+                System.out.println(">> CARGANDO SECUENCIAS DE LA PÍLDORA " + eleccion.toUpperCase() + "...");
+                
+                // Aquí mañana conectaremos con los retos específicos
+            } else {
+                System.out.println(">> ERROR: '" + eleccion + "' no es una ruta reconocida por el Oráculo.");
+                System.out.println(">> Solo puedes elegir entre 'ROJA' o 'AZUL'.");
+            }
+        }
     }
 }
