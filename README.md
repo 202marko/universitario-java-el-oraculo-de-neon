@@ -19,7 +19,7 @@ Tras la **Fase 0 (Canalización Activa)**, el usuario debe elegir su camino. Est
 
 #### 🔴 RUTA ROJA: El Camino de la Verdad (Alta Complejidad)
 *“La verdad sin filtros: rápida pero técnica.”*
-1. **Fase R1 - Estabilización de Núcleo:** Desafío de aritmética aleatoria mediante el uso de Math.random() y validación de tipos de datos.
+1. **Fase R1 - Estabilización de Núcleo:** Desafío de aritmética aleatoria mediante el uso de `Math.random()` y validación de tipos de datos.
 2. **Fase R2 - Calibración de Frecuencia:** Implementación de lógica de rangos con operadores lógicos (`&&`) y verificación de paridad mediante el operador módulo (`%`).
 3. **Fase R3 - Protocolo de Seguridad:** Algoritmo de validación de credenciales del sistema mediante manejo y comparación de cadenas (`Strings`).
 * **Meta:** Superar 3 niveles técnicos para acceder a la Clave del Alma.
