@@ -73,7 +73,7 @@ public class Main {
         System.out.println("\n>> ADVERTENCIA: Una vez dentro, no hay vuelta atrás.");
         System.out.println(">> Debes sincronizar tu pulso con el código del Oráculo.");
 
-        String comando = "";
+        String comando = " ";
         boolean sincronizado = false;
 
         while (!sincronizado) {
@@ -159,8 +159,8 @@ public class Main {
                 if (respuesta == resultadoCorrecto) {
                     System.out.println(">> [OK]: Sincronización exitosa.");
                     superado = true;
-                    retoCalibracion(lector);
                     // Aquí llamaremos al Reto 2 en el siguiente paso
+                    retoCalibracion(lector);
                 } else {
                     System.out.println(">> [ERROR]: Valor incorrecto. El núcleo se vuelve inestable. Reintente.");
                 }
@@ -171,10 +171,7 @@ public class Main {
         }
     }
 
-    /**
-     * Reto 2: Calibración de Frecuencia Uso de operadores lógicos (&&) y módulo
-     * (%) para verificar paridad.
-     */
+    //Reto 2: Calibración de Frecuencia Uso de operadores lógicos (&&) y módulo (%) para verificar paridad.
     public static void retoCalibracion(Scanner lector) {
         System.out.println("\n[RETO 2: CALIBRACIÓN DE FRECUENCIA]");
         System.out.println(">> El portal es inestable. Ingrese una frecuencia de sintonización.");
@@ -192,8 +189,7 @@ public class Main {
                 if (frecuencia >= 50 && frecuencia <= 100 && frecuencia % 2 == 0) {
                     System.out.println(">> [OK]: Frecuencia sincronizada. El portal se ha estabilizado.");
                     calibrado = true;
-                    // Aquí llamaremos al Reto 3 final de esta ruta
-                    
+                    retoSeguridadFinal(lector); // Llamamos al Reto 3
                 } else {
                     System.out.println(">> [ERROR]: Frecuencia fuera de rango o incompatible (debe ser par).");
                     System.out.println(">> Tip: Intente con un número par entre 50 y 100.");
@@ -201,6 +197,37 @@ public class Main {
             } else {
                 System.out.println(">> [ERROR]: Formato no válido. Ingrese un número entero.");
                 lector.next();
+            }
+        }
+    }
+
+    //Reto 3: Protocolo de Seguridad Final: Objetivo: Validación de cadenas (Strings) y finalización de la ruta.
+    public static void retoSeguridadFinal(Scanner lector) {
+        System.out.println("\n[RETO 3: PROTOCOLO DE SEGURIDAD FINAL]");
+        System.out.println(">> El sistema solicita la palabra clave de emergencia.");
+        System.out.println(">> PISTA: Es el nombre del sistema que estás operando.");
+
+        // La respuesta correcta es NEON ORACLE
+        String claveCorrecta = "NEON ORACLE";
+        boolean accesoConcedido = false;
+
+        while (!accesoConcedido) {
+            System.out.print("\nINGRESE PALABRA CLAVE: ");
+            String entrada = lector.nextLine().trim();
+
+            if (entrada.equalsIgnoreCase(claveCorrecta)) {
+                System.out.println("\n>> [SISTEMA]: ACCESO TOTAL CONCEDIDO.");
+                System.out.println(">> Has demostrado ver más allá de la ilusión.");
+                System.out.println(">> Extrayendo la Clave del Alma...");
+                accesoConcedido = true;
+
+                // Final de la ruta: Mañana haremos el cálculo final de la Clave del Alma
+                System.out.println("\n===========================================================");
+                System.out.println("       ¡HAS COMPLETADO LA RUTA ROJA EXITOSAMENTE!        ");
+                System.out.println("===========================================================");
+            } else {
+                System.out.println(">> [DENEGADO]: Clave incorrecta. El sistema se bloquea.");
+                System.out.println(">> Intente de nuevo, humano.");
             }
         }
     }
