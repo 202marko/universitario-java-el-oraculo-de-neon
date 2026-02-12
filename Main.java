@@ -159,6 +159,7 @@ public class Main {
                 if (respuesta == resultadoCorrecto) {
                     System.out.println(">> [OK]: Sincronización exitosa.");
                     superado = true;
+                    retoCalibracion(lector);
                     // Aquí llamaremos al Reto 2 en el siguiente paso
                 } else {
                     System.out.println(">> [ERROR]: Valor incorrecto. El núcleo se vuelve inestable. Reintente.");
@@ -166,6 +167,40 @@ public class Main {
             } else {
                 System.out.println(">> [CRITICAL_ERROR]: Solo se aceptan datos numéricos.");
                 lector.next(); // Limpiar el dato no válido
+            }
+        }
+    }
+
+    /**
+     * Reto 2: Calibración de Frecuencia Uso de operadores lógicos (&&) y módulo
+     * (%) para verificar paridad.
+     */
+    public static void retoCalibracion(Scanner lector) {
+        System.out.println("\n[RETO 2: CALIBRACIÓN DE FRECUENCIA]");
+        System.out.println(">> El portal es inestable. Ingrese una frecuencia de sintonización.");
+        System.out.println(">> REQUISITOS: El valor debe estar entre 50 y 100, y debe ser un número PAR.");
+
+        boolean calibrado = false;
+        while (!calibrado) {
+            System.out.print("INGRESE FRECUENCIA: ");
+
+            if (lector.hasNextInt()) {
+                int frecuencia = lector.nextInt();
+                lector.nextLine(); // Limpiar buffer
+
+                // Lógica de rango y paridad
+                if (frecuencia >= 50 && frecuencia <= 100 && frecuencia % 2 == 0) {
+                    System.out.println(">> [OK]: Frecuencia sincronizada. El portal se ha estabilizado.");
+                    calibrado = true;
+                    // Aquí llamaremos al Reto 3 final de esta ruta
+                    
+                } else {
+                    System.out.println(">> [ERROR]: Frecuencia fuera de rango o incompatible (debe ser par).");
+                    System.out.println(">> Tip: Intente con un número par entre 50 y 100.");
+                }
+            } else {
+                System.out.println(">> [ERROR]: Formato no válido. Ingrese un número entero.");
+                lector.next();
             }
         }
     }
